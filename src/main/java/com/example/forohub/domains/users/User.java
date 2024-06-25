@@ -30,7 +30,7 @@ public class User implements UserDetails {
     public User(UserData data) {
         this.name = data.name();
         this.mail = data.mail();
-        this.password = new BCryptPasswordEncoder().encode(data.password()); ;
+        this.password = new BCryptPasswordEncoder().encode(data.password());
     }
 
     @Override
