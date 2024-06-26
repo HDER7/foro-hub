@@ -7,7 +7,7 @@ public record TopicResponseData(Long id,
                                 String message,
                                 LocalDateTime creationDate,
                                 Long courseId,
-                                Long author_id) {
+                                Long authorId) {
     public TopicResponseData(Topic topic) {
         this(topic.getId(), topic.getTitle(),topic.getMessage(), topic.getCreation(),topic.getCourse().getId(),topic.getAuthor().getId());
     }

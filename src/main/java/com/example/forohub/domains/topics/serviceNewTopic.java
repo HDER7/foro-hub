@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class serviceNewTopic {
@@ -29,7 +28,7 @@ public class serviceNewTopic {
     @Autowired
     private TokenService tokenService;
 
-    public TopicResponseData add(DataTopic data, HttpServletRequest request){
+    public Topic add(DataTopic data, HttpServletRequest request){
         var user = getAuthenticatedUser(request);
         if(userRepository.findById(user.getId()).isEmpty()){
             throw new IntegrityValidation("Este id para usurio no existe");
@@ -43,13 +42,11 @@ public class serviceNewTopic {
         user = userRepository.findById(user.getId()).get();
         var course = courseRepository.findById(data.courseId()).orElse(null);
 
-        var topic = topicRepository.save(new Topic(user, course,data.message(),data.title()));
-
-        return new TopicResponseData(topic);
+        return topicRepository.save(new Topic(user, course,data.message(),data.title()));
     }
 
 
-    public TopicResponseData update(TopicDataUpdate data, HttpServletRequest request) {
+    public TopicalDetail update(TopicDataUpdate data, HttpServletRequest request) {
         if (data.title() == null && data.message() ==null){
             throw new IntegrityValidation("No hay nada para editar");
         }
@@ -72,8 +69,19 @@ public class serviceNewTopic {
         else {
             topic.setTitle(data.title());
         }
+        topic.update();
+        return new TopicalDetail(topic);
+    }
 
-        return new TopicResponseData(topic);
+    public void delete(Long id,HttpServletRequest request) {
+        if(!topicRepository.existsById(id)){
+            throw new IntegrityValidation("No exite el topico");
+        }
+        var user = getAuthenticatedUser(request);
+        TopicDataUpdate data = new TopicDataUpdate(id,null,null);
+        updateTopicals.forEach(v -> v.validate(data,user));
+        var topic = topicRepository.getReferenceById(id);
+        topic.delete();
     }
 
     private User getAuthenticatedUser(HttpServletRequest request) {

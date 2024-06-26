@@ -40,7 +40,6 @@ public class TokenService {
         }
 
         try {
-            // Decodificar el JWT
             DecodedJWT decodedJWT = JWT.decode(token);
             String user = decodedJWT.getSubject();
 
@@ -49,7 +48,6 @@ public class TokenService {
             User usuario = userRepository.findById(u.getId())
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
-            // Verificar el token usando la contraseña del usuario como clave secreta
             Algorithm algorithm = Algorithm.HMAC256(usuario.getPassword());
             JWT.require(algorithm)
                     .withIssuer("forohub")

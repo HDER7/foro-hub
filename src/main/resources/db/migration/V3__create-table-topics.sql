@@ -3,7 +3,7 @@ create table topics(
     title varchar(100) not null unique ,
     message varchar(500) not null unique ,
     creation datetime not null,
-    status tinyint not null,
+    status varchar(100) not null,
     course_id bigint not null,
     author_id bigint not null,
     primary key (id),

@@ -22,7 +22,8 @@ public class Topic {
     @Setter
     private String message;
     private LocalDateTime creation;
-    private boolean status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
     @JoinColumn(name = "course_id")
     @ManyToOne
     private Course course;
@@ -36,7 +37,15 @@ public class Topic {
         this.message = message;
         this.title = title;
         this.creation = LocalDateTime.now();
-        this.status = true;
+        this.status = Status.CREADO;
+    }
+
+    public void delete(){
+        this.status = Status.ELIMINADO;
+    }
+
+    public void update(){
+        this.status = Status.MODIFICADO;
     }
 
 }

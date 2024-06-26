@@ -24,13 +24,13 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        //obtener token del header
+
         var authHeader = request.getHeader("Authorization");
         if(authHeader != null){
             var token = authHeader.replace("Bearer ", "");
             var subject = tokenService.getSubject(token);
             if(subject != null){
-                //valido
+
                 var usuario = userRepository.findByMail(subject);
                 var autho = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(autho);
