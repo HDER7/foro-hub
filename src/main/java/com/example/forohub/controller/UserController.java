@@ -41,7 +41,7 @@ public class UserController {
     public ResponseEntity<JWTTokenData> login(@RequestBody UserAuthenticationData user){
         Authentication authenticationToken = new UsernamePasswordAuthenticationToken(user.mail(),user.password());
         var userAuth =authenticationManager.authenticate(authenticationToken);
-        var JWTtoken = tokenService.generateToken((User) userAuth.getPrincipal());
-        return ResponseEntity.ok(new JWTTokenData(JWTtoken));
+        var JWTToken = tokenService.generateToken((User) userAuth.getPrincipal());
+        return ResponseEntity.ok(new JWTTokenData(JWTToken));
     }
 }

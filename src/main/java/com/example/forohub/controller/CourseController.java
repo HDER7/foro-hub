@@ -8,7 +8,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -31,8 +30,8 @@ public class CourseController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<CourseResponseData>> allCourses(@PageableDefault(size = 10) Pageable paginacion) {
-        return ResponseEntity.ok(repository.findAll(paginacion).map(CourseResponseData::new));
+    public ResponseEntity<Page<CourseResponseData>> allCourses(Pageable page) {
+        return ResponseEntity.ok(repository.findAll(page).map(CourseResponseData::new));
     }
 
 }

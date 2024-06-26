@@ -42,7 +42,6 @@ public class TokenService {
         try {
             // Decodificar el JWT
             DecodedJWT decodedJWT = JWT.decode(token);
-            System.out.println(decodedJWT.getSubject());
             String user = decodedJWT.getSubject();
 
             User u = (User) userRepository.findByMail(user);
