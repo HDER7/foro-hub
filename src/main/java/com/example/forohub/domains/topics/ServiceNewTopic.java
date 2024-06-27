@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class serviceNewTopic {
+public class ServiceNewTopic {
 
     @Autowired
     private TopicRepository topicRepository;

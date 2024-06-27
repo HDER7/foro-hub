@@ -1,11 +1,13 @@
 package com.example.forohub.domains.topics;
 
+import com.example.forohub.domains.answers.Answer;
 import com.example.forohub.domains.courses.Course;
 import com.example.forohub.domains.users.User;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Table(name = "topics")
 @Entity(name = "Topic")
@@ -30,6 +32,8 @@ public class Topic {
     @JoinColumn(name = "author_id")
     @ManyToOne
     private User author;
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Answer> answers;
 
     public Topic(User user, Course course, String message, String title) {
         this.author = user;
@@ -47,5 +51,4 @@ public class Topic {
     public void update(){
         this.status = Status.MODIFICADO;
     }
-
 }

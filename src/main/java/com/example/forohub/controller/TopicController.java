@@ -21,7 +21,7 @@ import java.util.Optional;
 public class TopicController {
 
     @Autowired
-    serviceNewTopic service;
+    ServiceNewTopic service;
     @Autowired
     TopicRepository topicRepository;
 
