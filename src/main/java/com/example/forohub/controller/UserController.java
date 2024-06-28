@@ -22,6 +22,7 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
+@ResponseBody
 @RequestMapping("/users")
 @SecurityRequirement(name = "bearer-key")
 public class UserController {
