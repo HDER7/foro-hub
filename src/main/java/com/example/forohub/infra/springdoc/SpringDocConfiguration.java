@@ -22,13 +22,11 @@ public class SpringDocConfiguration {
                                         .scheme("bearer")
                                         .bearerFormat("JWT")))
                 .info(new Info()
-                        .title("API Voll.med")
-                        .description("API Rest de la aplicación Voll.med, que contiene las funcionalidades de CRUD de médicos y pacientes, así como programación y cancelación de consultas.")
+                        .title("API ForoHub")
+                        .description("Foro-Hub es una API diseñada para gestionar un foro. Permite a los usuarios crear, leer, actualizar y eliminar publicaciones y comentarios, así como gestionar usuarios y temas del foro.")
                         .contact(new Contact()
-                                .name("Equipo Backend")
-                                .email("backend@voll.med"))
+                                .email("heiderarb@gmail.com"))
                         .license(new License()
-                                .name("Apache 2.0")
-                                .url("http://voll.med/api/licencia")));  }
+                                .name("Apache 2.0")));  }
 
 }
