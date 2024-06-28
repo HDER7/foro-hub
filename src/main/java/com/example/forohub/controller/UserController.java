@@ -4,6 +4,7 @@ import com.example.forohub.domains.users.*;
 import com.example.forohub.infra.errors.IntegrityValidation;
 import com.example.forohub.infra.security.JWTTokenData;
 import com.example.forohub.infra.security.TokenService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -22,6 +23,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
+@SecurityRequirement(name = "bearer-key")
 public class UserController {
 
     @Autowired

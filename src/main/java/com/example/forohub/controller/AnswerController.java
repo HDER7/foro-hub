@@ -1,6 +1,7 @@
 package com.example.forohub.controller;
 
 import com.example.forohub.domains.answers.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/answers")
+@SecurityRequirement(name = "bearer-key")
 public class AnswerController {
 
     @Autowired
