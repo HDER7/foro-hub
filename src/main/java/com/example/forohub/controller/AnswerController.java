@@ -49,12 +49,13 @@ public class AnswerController {
         return ResponseEntity.ok(res);
     }
 
-//    @DeleteMapping("/{id}")
-//    @Transactional
-//    public ResponseEntity<Void> deleteAnswer(@PathVariable Long id, HttpServletRequest request){
-//        serviceAnswer.delete(id,request);
-//        return ResponseEntity.noContent().build();
-//    }
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> deleteAnswer(@PathVariable Long id, HttpServletRequest request){
+        var res = serviceAnswer.delete(id,request);
+        repository.delete(res);
+        return ResponseEntity.noContent().build();
+    }
 
 
 

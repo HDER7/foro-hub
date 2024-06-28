@@ -32,7 +32,7 @@ public class Topic {
     @JoinColumn(name = "author_id")
     @ManyToOne
     private User author;
-    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Answer> answers;
 
     public Topic(User user, Course course, String message, String title) {

@@ -7,7 +7,6 @@ import com.example.forohub.domains.users.UserRepository;
 import com.example.forohub.infra.errors.IntegrityValidation;
 import com.example.forohub.infra.security.TokenService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,14 +59,12 @@ public class ServiceAnswer {
         return new AnswerResponseData(answer);
     }
 
-//    public void delete(Long id, HttpServletRequest request) {
-//        AnswerDataUpdate data = new AnswerDataUpdate(id,null);
-//        var user = getAuthenticatedUser(request);
-//        validatorUpdateAnswers.forEach(v -> v.validate(data, user));
-//        var a =answerRepository.getReferenceById(id);
-//        answerRepository.delete(a);
-//        answerRepository.flush();
-//    }
+    public Answer delete(Long id, HttpServletRequest request) {
+        AnswerDataUpdate data = new AnswerDataUpdate(id,null);
+        var user = getAuthenticatedUser(request);
+        validatorUpdateAnswers.forEach(v -> v.validate(data, user));
+        return answerRepository.getReferenceById(id);
+    }
 
     private User getAuthenticatedUser(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
