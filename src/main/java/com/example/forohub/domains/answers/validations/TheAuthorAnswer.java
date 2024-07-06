@@ -1,6 +1,5 @@
 package com.example.forohub.domains.answers.validations;
 
-import com.example.forohub.domains.answers.AnswerDataUpdate;
 import com.example.forohub.domains.answers.AnswerRepository;
 import com.example.forohub.domains.users.User;
 import jakarta.validation.ValidationException;
@@ -14,8 +13,8 @@ public class TheAuthorAnswer implements ValidatorUpdateAnswer {
     private AnswerRepository Repository;
 
     @Override
-    public void validate(AnswerDataUpdate data, User user) {
-        var topic = Repository.findById(data.id()).orElse(null);
+    public void validate(Long id, User user) {
+        var topic = Repository.findById(id).orElse(null);
         assert topic != null;
         if (topic.getAuthor().getId() != user.getId()){
             throw new ValidationException("Esta respuesta no es de este usuario");

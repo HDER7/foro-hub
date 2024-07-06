@@ -139,20 +139,29 @@ La JWT depende de cada usuario registrado por lo tanto estan limitados eliminar 
 ### Respuestas
 
 - **Agregar una respuesta a un topico**
-  - `POST /api/answers`
+  - `POST /api/topics/:idTopico/answers`
   - Body: 
     ```json
     {
-      "topicId": "number",
       "message": "string"
     }
     ```
 
 - **Obtener todas las respuesta**
-  - `GET /api/answers`
+  - `GET /api/topics/answers`
+
+
+- **Actualizar una respuesta**
+  - `PUT /api/topics/answers/:id`
+  - Body:
+    ```json
+    {
+      "message": "string"
+    }
+    ```
 
 - **Eliminar una respuesta**
-  - `DELETE /api/answers/:id`
+  - `DELETE /api/topics/answers/:id`
 
 ### Cursos
 
@@ -161,7 +170,7 @@ La JWT depende de cada usuario registrado por lo tanto estan limitados eliminar 
   - Body: 
     ```json
     {
-      "name": "string"
+      "name": "string",
       "category":"string"
     }
     ```

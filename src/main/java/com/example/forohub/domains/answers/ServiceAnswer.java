@@ -26,43 +26,43 @@ public class ServiceAnswer {
     @Autowired
     private List<ValidatorUpdateAnswer> validatorUpdateAnswers;
 
-    public Answer add(AnswerData data, HttpServletRequest request){
-        if(!topicRepository.existsById(data.topicId())){
+    public Answer add(AnswerData data, HttpServletRequest request,Long id){
+        if(!topicRepository.existsById(id)){
             throw new IntegrityValidation("Topic not found");
         }
         var user = getAuthenticatedUser(request);
         if(userRepository.findById(user.getId()).isEmpty()){
             throw new IntegrityValidation("Este id para usuario no existe");
         }
-        if(!topicRepository.existsById(data.topicId())){
+        if(!topicRepository.existsById(id)){
             throw new IntegrityValidation("Este id para el topico no existe");
         }
         user = userRepository.findById(user.getId()).get();
-        var topic = topicRepository.findId(data.topicId()).orElse(null);
+        var topic = topicRepository.findId(id).orElse(null);
 
         return answerRepository.save(new Answer(user, topic, data.message()));
     }
 
-    public AnswerResponseData update(AnswerDataUpdate data, HttpServletRequest request) {
+
+    public AnswerResponseData update(AnswerData data, HttpServletRequest request,Long id) {
         if(data.message() == null || data.message().isEmpty()){
             throw new IntegrityValidation("no hay nada para actulizar");
         }
-        if(!answerRepository.existsById(data.id())){
+        if(!answerRepository.existsById(id)){
             throw new IntegrityValidation("Este id para la respuesta no existe");
         }
         var user = getAuthenticatedUser(request);
-        validatorUpdateAnswers.forEach(v -> v.validate(data, user));
+        validatorUpdateAnswers.forEach(v -> v.validate(id, user));
 
-        var answer = answerRepository.getReferenceById(data.id());
+        var answer = answerRepository.getReferenceById(id);
         answer.setMessage(data.message());
 
         return new AnswerResponseData(answer);
     }
 
     public Answer delete(Long id, HttpServletRequest request) {
-        AnswerDataUpdate data = new AnswerDataUpdate(id,null);
         var user = getAuthenticatedUser(request);
-        validatorUpdateAnswers.forEach(v -> v.validate(data, user));
+        validatorUpdateAnswers.forEach(v -> v.validate(id, user));
         return answerRepository.getReferenceById(id);
     }
 
